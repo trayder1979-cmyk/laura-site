@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Лаура Левченко | Візитка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: radial-gradient(circle at 10% 30%, rgba(245, 87, 108, 0.15), rgba(102, 126, 234, 0.08)),
+                        linear-gradient(145deg, #f9fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+        }
+
+        .blob {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(240, 147, 251, 0.4) 0%, rgba(245, 87, 108, 0.1) 70%);
+            border-radius: 70% 30% 60% 40% / 40% 50% 50% 60%;
+            filter: blur(80px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .blob2 {
+            position: fixed;
+            bottom: -10%;
+            right: -5%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.05));
+            border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
+            filter: blur(90px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 48px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.3s;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .profile-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 32px 55px -16px rgba(0, 0, 0, 0.25);
+        }
+
+        .top-section {
+            background: linear-gradient(115deg, #fdfbfb 0%, #f7f0f2 100%);
+            padding: 3rem 1rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 20px 35px -10px rgba(245, 87, 108, 0.3);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        .name {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e1e2f, #2d2a4a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .age {
+            text-align: center;
+            color: #f5576c;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .title {
+            text-align: center;
+            color: #5b6e8c;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e9eef3;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .info-section {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 32px;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2b48;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title span:first-child {
+            font-size: 1.4rem;
+        }
+
+        .about-text {
+            color: #2c3e4e;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .skills-container, .langs-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(115deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .lang-tag {
+            background: linear-gradient(115deg, #f093fb, #f5576c);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .hobby-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .hobby-list li {
+            padding: 0.3rem 0;
+            color: #2c3e4e;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .contact-item {
+            background: white;
+            border-radius: 60px;
+            padding: 0.6rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1f2b48;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: 0.2s;
+            border: 1px solid #eceff5;
+        }
+        .contact-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .contact-item:hover {
+            transform: translateY(-2px);
+            border-color: #f5576c;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.8rem 0 0.5rem;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            background: #1e293b;
+            color: white;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+        }
+        .social-btn:hover {
+            background: #f5576c;
+            transform: scale(0.97);
+        }
+
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+        }
+        .lang-btn {
+            background: #edf2f7;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1e293b;
+        }
+        .lang-btn.active {
+            background: #f5576c;
+            color: white;
+        }
+        .lang-btn:hover {
+            background: #d9e2ef;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #cbd5e1, transparent);
+        }
+        .footer {
+            text-align: center;
+            color: #7e8b9c;
+            font-size: 0.7rem;
+            margin-top: 1.2rem;
+        }
+
+        @media (max-width: 640px) {
+            .content { padding: 1.5rem; }
+            .avatar { width: 110px; height: 110px; }
+            .info-section { padding: 1rem; }
+            .name { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="blob"></div>
+<div class="blob2"></div>
+<div class="container">
+    <div class="profile-card">
+        <div class="top-section">
+            <!-- ФОТО НАВЕРХУ: файл должен называться photo.jpg (маленькими буквами) -->
+            <div class="avatar">
+                <img src="photo.jpg" alt="Лаура Левченко">
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="uk">🇺🇦 Українська</button>
+                <button class="lang-btn" data-lang="ru">🇷🇺 Русский</button>
+                <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+                <button class="lang-btn" data-lang="no">🇳🇴 Norsk</button>
+            </div>
+
+            <div class="name">Левченко Лаура</div>
+            <div class="age">🎂 13 років</div>
+            <div class="title" data-key="title">✨ учениця 8 класу · майбутня IT-спеціалістка</div>
+
+            <div class="info-section">
+                <div class="section-title"><span>📖</span> <span data-key="about_title">Про себе</span></div>
+                <div class="about-text" data-key="about_text">
+                    Мене звати Лаура Левченко. Мені 13 років, я навчаюсь у 8 класі. З дитинства захоплююсь математикою та шахами, а тепер ще й програмуванням. Цей сайт — мій перший самостійний проєкт з інформатики. У майбутньому мрію стати розробницею штучного інтелекту або фахівчинею з кібербезпеки. Вільно володію українською та російською, вивчаю англійську (рівень A2) і норвезьку (A2). Постійно беру участь у шкільних олімпіадах з математики та інформатики.
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title"><span>⚡</span> <span data-key="skills_title">Мої навички</span></div>
+                <div class="skills-container">
+                    <span class="skill-tag">📐 Математика</span>
+                    <span class="skill-tag">🇬🇧 Англійська</span>
+                    <span class="skill-tag">📚 Читання</span>
+                    <span class="skill-tag">🎨 Рисування</span>
+                    <span class="skill-tag">💻 Інформатика</span>
+                    <span class="skill-tag">♟️ Шахи</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title"><span>🗣️</span> <span data-key="langs_title">Мови</span></div>
+                <div class="langs-container">
+                    <span class="lang-tag">🇺🇦 Українська (рідна)</span>
+                    <span class="lang-tag">🇷🇺 Русский (вільно)</span>
+                    <span class="lang-tag">🇬🇧 English (A2)</span>
+                    <span class="lang-tag">🇳🇴 Norsk (A2)</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title"><span>🎯</span> <span data-key="hobby_title">Захоплення</span></div>
+                <ul class="hobby-list">
+                    <li data-key="hobby1">♟️ шахи та участь у турнірах</li>
+                    <li data-key="hobby2">📖 читання IT-літератури та фантастики</li>
+                    <li data-key="hobby3">🎨 цифрові ілюстрації</li>
+                    <li data-key="hobby4">💻 розв'язування олімпіадних задач з математики</li>
+                </ul>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item"><span>📞</span> <a href="tel:+4793965822">+47 939 65 822</a></div>
+                <div class="contact-item"><span>📧</span> <a href="mailto:laura.levchenko@example.com">laura.levchenko@example.com</a></div>
+            </div>
+
+            <div class="social-links">
+                <a href="#" class="social-btn" id="contactBtn">💬 Написати</a>
+                <a href="#" class="social-btn" onclick="alert('📷 Сторінки в соціальних мережах з\'являться в майбутньому! Слідкуйте за оновленнями 😊'); return false;">📷 Соцмережі (скоро)</a>
+                <a href="#" class="social-btn" onclick="alert('🐙 GitHub-профіль буде створено, коли я почну публікувати свої проєкти'); return false;">🐙 GitHub (в майбутньому)</a>
+            </div>
+            <p style="text-align: center; font-size: 0.7rem; color: #7e8b9c; margin-top: 0rem;">🔜 Актуальні посилання з’являться пізніше</p>
+
+            <hr>
+            <div class="footer">© 2026 Лаура Левченко · перша багатомовна візитка</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const translations = {
+        uk: {
+            title: "✨ учениця 8 класу · майбутня IT-спеціалістка",
+            about_title: "Про себе",
+            about_text: "Мене звати Лаура Левченко. Мені 13 років, я навчаюсь у 8 класі. З дитинства захоплююсь математикою та шахами, а тепер ще й програмуванням. Цей сайт — мій перший самостійний проєкт з інформатики. У майбутньому мрію стати розробницею штучного інтелекту або фахівчинею з кібербезпеки. Вільно володію українською та російською, вивчаю англійську (рівень A2) і норвезьку (A2). Постійно беру участь у шкільних олімпіадах з математики та інформатики.",
+            skills_title: "Мої навички",
+            langs_title: "Мови",
+            hobby_title: "Захоплення",
+            hobby1: "♟️ шахи та участь у турнірах",
+            hobby2: "📖 читання IT-літератури та фантастики",
+            hobby3: "🎨 цифрові ілюстрації",
+            hobby4: "💻 розв'язування олімпіадних задач з математики"
+        },
+        ru: {
+            title: "✨ ученица 8 класса · будущий IT-специалист",
+            about_title: "О себе",
+            about_text: "Меня зовут Лаура Левченко. Мне 13 лет, я учусь в 8 классе. С детства увлекаюсь математикой и шахматами, а теперь ещё и программированием. Этот сайт — мой первый самостоятельный проект по информатике. В будущем мечтаю стать разработчицей искусственного интеллекта или специалисткой по кибербезопасности. Свободно владею украинским и русским, изучаю английский (уровень A2) и норвежский (A2). Постоянно участвую в школьных олимпиадах по математике и информатике.",
+            skills_title: "Мои навыки",
+            langs_title: "Языки",
+            hobby_title: "Увлечения",
+            hobby1: "♟️ шахматы и участие в турнирах",
+            hobby2: "📖 чтение IT-литературы и фантастики",
+            hobby3: "🎨 цифровые иллюстрации",
+            hobby4: "💻 решение олимпиадных задач по математике"
+        },
+        en: {
+            title: "✨ 8th grade student · future IT specialist",
+            about_title: "About me",
+            about_text: "My name is Laura Levchenko. I'm 13 years old, in 8th grade. Since childhood I've loved mathematics and chess, and now programming as well. This website is my first independent computer science project. In the future I dream of becoming an AI developer or a cybersecurity specialist. I'm fluent in Ukrainian and Russian, learning English (A2) and Norwegian (A2). I constantly take part in school olympiads in mathematics and computer science.",
+            skills_title: "My skills",
+            langs_title: "Languages",
+            hobby_title: "Hobbies",
+            hobby1: "♟️ chess & tournaments",
+            hobby2: "📖 reading IT & sci-fi",
+            hobby3: "🎨 digital illustrations",
+            hobby4: "💻 solving math olympiad problems"
+        },
+        no: {
+            title: "✨ 8. klasse elev · fremtidig IT-spesialist",
+            about_title: "Om meg",
+            about_text: "Jeg heter Laura Levchenko. Jeg er 13 år gammel, går i 8. klasse. Fra barndommen har jeg elsket matematikk og sjakk, og nå også programmering. Denne nettsiden er mitt første selvstendige informatikkprosjekt. I fremtiden drømmer jeg om å bli AI-utvikler eller cybersikkerhetsspesialist. Jeg snakker flytende ukrainsk og russisk, lærer engelsk (nivå A2) og norsk (A2). Jeg deltar jevnlig i skoleolympiader i matematikk og informatikk.",
+            skills_title: "Mine ferdigheter",
+            langs_title: "Språk",
+            hobby_title: "Hobbyer",
+            hobby1: "♟️ sjakk og turneringer",
+            hobby2: "📖 lesing av IT-litteratur og science fiction",
+            hobby3: "🎨 digitale illustrasjoner",
+            hobby4: "💻 løse matematikkolympiader"
+        }
+    };
+
+    function setLanguage(lang) {
+        const t = translations[lang];
+        if (!t) return;
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (t[key]) el.innerHTML = t[key];
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+        });
+        localStorage.setItem('preferred_language', lang);
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+    });
+    const savedLang = localStorage.getItem('preferred_language');
+    if (savedLang && translations[savedLang]) setLanguage(savedLang);
+    else setLanguage('uk');
+
+    document.getElementById('contactBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("📩 Зв'язатися з Лаурою:\n📞 +47 939 65 822\n📧 laura.levchenko@example.com");
+    });
+</script>
+</body>
+</html>
